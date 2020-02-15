@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Xiirf/TFM_BPMN_to_Trello/issues"
   },
-  "homepage": "https://github.com/Xiirf/TFM_BPMN_to_Trello#readme"
+  "homepage": "https://github.com/Xiirf/TFM_BPMN_to_Trello#readme",
+  "dependencies": {
+    "camaro": "^4.1.2"
+  }
 }
