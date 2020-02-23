@@ -18,7 +18,7 @@ readBPMN.getElementfromDiagram(xmlContent).then((data) => {
             .then((idBoard) => {
 				createElement.createList(idBoard, tasks)
 				.then((data) => {
-					console.log("FINI" + data);
+					console.log(data);
 				})
 				.catch((error) => {
 					console.log('ERREUR'+ error);
