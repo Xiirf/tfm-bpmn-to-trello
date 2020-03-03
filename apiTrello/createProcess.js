@@ -27,7 +27,8 @@ exports.createBoard = (nameBoard) => {
     const data = {
         name: nameBoard,
         defaultLists: false,
-        idOrganization: process.env.teamName
+        idOrganization: process.env.teamName,
+        prefs_permissionLevel: 'org'
     }
     setConfigKey(data);
     return requestTrello.post('/boards', data)
