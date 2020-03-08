@@ -10,6 +10,9 @@ import { HomePageComponent } from './pages/homePage/home-page.component';
 import { OrganizationListComponent } from './pages/organizationList/organization-list.component';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -23,9 +26,12 @@ import { MatSelectModule } from '@angular/material/select';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     HttpClientJsonpModule,
     NoopAnimationsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

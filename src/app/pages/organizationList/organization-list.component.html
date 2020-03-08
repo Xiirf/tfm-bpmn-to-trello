@@ -1,11 +1,14 @@
-<mat-form-field>
-    <mat-label>Elección del equipo Trello</mat-label>
-    <mat-select [(ngModel)]="selectedOrg" name="org" [formControl]="orgControl" required>
-      <mat-option>--</mat-option>
-      <mat-option *ngFor="let org of organizationList" [value]="selectedOrg">
-        {{org.name}}
-      </mat-option>
-    </mat-select>
-    <mat-error *ngIf="orgControl.hasError('required')">Por favor, elija un equipo</mat-error>
-</mat-form-field>
+<div>
+  <mat-form-field>
+      <mat-label>Elección del equipo Trello</mat-label>
+      <mat-select [(ngModel)]="selectedOrg" name="org" required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let org of organizationList" [value]="org">
+          {{ org.name }}
+        </mat-option>
+      </mat-select>
+  <mat-error *ngIf="orgControl.hasError('required')">Por favor, elija un equipo</mat-error>
+  </mat-form-field>
+</div>
+
 <p> Equipo seleccionado: {{selectedOrg?.name}} </p>
