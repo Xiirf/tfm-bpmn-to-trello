@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/Xiirf/TFM_BPMN_to_Trello/issues"
   },
-  "homepage": "https://github.com/Xiirf/TFM_BPMN_to_Trello#readme"
+  "homepage": "https://github.com/Xiirf/TFM_BPMN_to_Trello#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "camaro": "^4.1.2",
+    "dotenv": "^8.2.0"
+  }
 }
