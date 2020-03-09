@@ -24,6 +24,8 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bpmn-js/dist/assets/diagram-js.css",
+              "node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn.css",
               "src/custom-theme.scss",
               "src/styles.css"
             ],
@@ -41,6 +43,7 @@
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
+              "aot": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
