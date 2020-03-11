@@ -1,1 +1,7 @@
-<div #ref class="diagram-container">TEST</div>
+<div #ref class="diagram-container">
+    <input type="file" (change)="getFile($event)"/>​
+</div>
+<br>
+<button (click)="saveSVG()" download="bpmn.svg">Save as svg</button>
+<button (click)="saveDiagram()">Save as xml</button>
+

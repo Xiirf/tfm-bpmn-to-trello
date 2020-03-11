@@ -10,6 +10,8 @@ import {
 
 import * as BpmnJS from 'bpmn-js/dist/bpmn-modeler.production.min.js';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
+import { saveAs } from '@progress/kendo-file-saver';
 
 @Component({
   selector: 'app-bpmn',
@@ -24,7 +26,8 @@ export class BpmnComponent implements AfterContentInit, OnDestroy, OnChanges {
     // retrieve DOM element reference
     @ViewChild('ref', {static: true}) private el: ElementRef;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+                private sanitizer: DomSanitizer) {
 
         this.bpmnJS = new BpmnJS();
 
@@ -38,17 +41,7 @@ export class BpmnComponent implements AfterContentInit, OnDestroy, OnChanges {
     ngAfterContentInit(): void {
         // attach BpmnJS instance to DOM element
         this.bpmnJS.attachTo(this.el.nativeElement);
-        // Fonction temp
-        /*this.readFileContent('./diagrams/diagram_V1.bpmn')
-        .then((xmlContent) => {
-            console.log("ON a le fichier !");
-            this.displayDiagram(xmlContent);
-        })
-        .catch((error) => {
-            console.log("PB de lecture" + error);
-        });*/
         this.loadXML();
-
     }
 
     loadXML() {
@@ -59,29 +52,11 @@ export class BpmnComponent implements AfterContentInit, OnDestroy, OnChanges {
             .append('Access-Control-Allow-Methods', 'GET')
             .append('Access-Control-Allow-Origin', '*')
             // tslint:disable-next-line:max-line-length
-            .append('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Access-Control-Allow-Origin, Access-Control-Request-Method'),  
+            .append('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Access-Control-Allow-Origin, Access-Control-Request-Method'),
             responseType: 'text'
         })
         .subscribe((xmlContent) => {
             this.displayDiagram(xmlContent);
-        });
-    }
-
-    readFileContent(file: File): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            if (!file) {
-                resolve('');
-            }
-
-            const reader = new FileReader();
-
-            reader.onload = (e) => {
-                const text = reader.result.toString();
-                resolve(text);
-
-            };
-
-            reader.readAsText(file);
         });
     }
 
@@ -101,6 +76,36 @@ export class BpmnComponent implements AfterContentInit, OnDestroy, OnChanges {
         // re-import whenever the url changes
         if (changes.url) {
           // this.loadUrl(changes.url.currentValue);
+        }
+    }
+
+    saveSVG() {
+        this.bpmnJS.saveSVG((err: any, svg: any) => {
+            if (!err) {
+                const blob = new Blob([svg], { type: 'image/svg+xml' });
+                saveAs(blob, 'diagram.svg');
+            }
+        });
+    }
+
+    saveDiagram() {
+        this.bpmnJS.saveXML((err: any, xml: any) => {
+            if (!err) {
+                const blob = new Blob([xml], { type: 'image/svg+xml' });
+                saveAs(blob, 'diagram.bpmn');
+            }
+        });
+    }
+
+    public getFile(event) {
+        if (event.target.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                const text = reader.result.toString();
+                this.displayDiagram(text);
+            };
+            reader.readAsText(event.target.files[0]);
         }
     }
 
