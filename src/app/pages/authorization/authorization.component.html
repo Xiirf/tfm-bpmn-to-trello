@@ -12,7 +12,10 @@
     </h1>
     <button (click)="deleteToken()">Suprimir token</button>
 
-    <app-organization-list></app-organization-list>
+    <app-organization-list
+        (selectedOrgOut)="setSelectedOrg($event)">
+    </app-organization-list>
+
 </ng-template>
 
 

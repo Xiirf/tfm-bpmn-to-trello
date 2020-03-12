@@ -5,13 +5,16 @@ import {
     OnDestroy,
     ViewChild,
     OnChanges,
-    SimpleChanges
+    SimpleChanges,
+    Input
   } from '@angular/core';
 
 import * as BpmnJS from 'bpmn-js/dist/bpmn-modeler.production.min.js';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { saveAs } from '@progress/kendo-file-saver';
+import { Organization } from 'src/app/services/trello.service';
+import { GenerateService } from 'src/app/services/generate.service';
 
 @Component({
   selector: 'app-bpmn',
@@ -19,15 +22,17 @@ import { saveAs } from '@progress/kendo-file-saver';
   styleUrls: ['./bpmn.component.scss']
 })
 
-export class BpmnComponent implements AfterContentInit, OnDestroy, OnChanges {
+export class BpmnComponent implements AfterContentInit, OnDestroy {
     // instantiate BpmnJS with component
-    private bpmnJS: BpmnJS;
+    bpmnJS: BpmnJS;
+    @Input() selectedOrg: Organization;
 
     // retrieve DOM element reference
     @ViewChild('ref', {static: true}) private el: ElementRef;
 
     constructor(private http: HttpClient,
-                private sanitizer: DomSanitizer) {
+                private sanitizer: DomSanitizer,
+                private generateService: GenerateService) {
 
         this.bpmnJS = new BpmnJS();
 
@@ -71,12 +76,13 @@ export class BpmnComponent implements AfterContentInit, OnDestroy, OnChanges {
         });
     }
 
-
-    ngOnChanges(changes: SimpleChanges) {
-        // re-import whenever the url changes
-        if (changes.url) {
-          // this.loadUrl(changes.url.currentValue);
-        }
+    genTrello() {
+        console.log("ici");
+        this.bpmnJS.saveXML((err: any, xml: any) => {
+            if (!err) {
+                this.generateService.generateTrello(this.selectedOrg.name, xml);
+            }
+        });
     }
 
     saveSVG() {

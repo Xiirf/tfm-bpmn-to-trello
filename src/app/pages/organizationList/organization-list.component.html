@@ -1,8 +1,7 @@
 <div>
   <mat-form-field>
       <mat-label>Elección del equipo Trello</mat-label>
-      <mat-select [(ngModel)]="selectedOrg" name="org" required>
-        <mat-option>--</mat-option>
+      <mat-select [ngModel]="selectedOrg" (ngModelChange)="sendData($event)" name="org" required>
         <mat-option *ngFor="let org of organizationList" [value]="org">
           {{ org.name }}
         </mat-option>

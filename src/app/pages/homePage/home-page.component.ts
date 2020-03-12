@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Organization } from 'src/app/services/trello.service';
 
 @Component({
   selector: 'app-home-page',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
 })
 
 export class HomePageComponent {
+  selectedOrg: Organization;
 
+  setSelectedOrg(data) {
+    this.selectedOrg = data;
+  }
 }

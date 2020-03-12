@@ -4,4 +4,5 @@
 <br>
 <button (click)="saveSVG()" download="bpmn.svg">Save as svg</button>
 <button (click)="saveDiagram()">Save as xml</button>
+<button *ngIf="selectedOrg" (click)="genTrello()">Generación Trello</button>
 

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Organization } from 'src/app/services/trello.service';
 declare let TrelloPowerUp: any;
 declare let window: any;
 
@@ -12,6 +13,8 @@ export class AuthorizationComponent implements OnInit {
 
     Promise = TrelloPowerUp.Promise;
     token: string;
+    selectedOrg: Organization;
+    @Output() selectedOrgOut = new EventEmitter<Organization>();
 
     ngOnInit() {
         if (!localStorage.getItem('key')) {
@@ -38,6 +41,11 @@ export class AuthorizationComponent implements OnInit {
                 alert('Cancelled!');
             }
         });
+    }
+
+    setSelectedOrg(data) {
+        this.selectedOrg = data;
+        this.selectedOrgOut.emit(this.selectedOrg);
     }
 
     deleteToken() {

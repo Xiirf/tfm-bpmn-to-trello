@@ -1,3 +1,7 @@
 <h1>Página de configuración</h1>
-<app-authorization></app-authorization>
-<app-bpmn></app-bpmn>
+<app-authorization
+    (selectedOrgOut)="setSelectedOrg($event)">
+</app-authorization>
+<app-bpmn
+    [selectedOrg]="selectedOrg">
+</app-bpmn>
