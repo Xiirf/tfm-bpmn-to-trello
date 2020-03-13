@@ -22,7 +22,7 @@ export class OrganizationListComponent implements OnInit {
         this.trelloService.getOrganization()
             .then((data) => {
                 for (const org of data.organizations) {
-                    this.organizationList.push({id: org.id, name: org.displayName});
+                    this.organizationList.push({id: org.id, name: org.name, displayName: org.displayName});
                 }
                 console.log(JSON.stringify(this.organizationList));
             })

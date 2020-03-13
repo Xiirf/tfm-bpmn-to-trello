@@ -4,8 +4,6 @@ import {
     ElementRef,
     OnDestroy,
     ViewChild,
-    OnChanges,
-    SimpleChanges,
     Input
   } from '@angular/core';
 
@@ -77,8 +75,8 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
     }
 
     genTrello() {
-        console.log("ici");
         this.bpmnJS.saveXML((err: any, xml: any) => {
+            console.log(xml);
             if (!err) {
                 this.generateService.generateTrello(this.selectedOrg.name, xml);
             }
@@ -96,6 +94,7 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
 
     saveDiagram() {
         this.bpmnJS.saveXML((err: any, xml: any) => {
+            console.log(xml);
             if (!err) {
                 const blob = new Blob([xml], { type: 'image/svg+xml' });
                 saveAs(blob, 'diagram.bpmn');

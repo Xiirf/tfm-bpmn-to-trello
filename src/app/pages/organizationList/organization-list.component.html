@@ -3,7 +3,7 @@
       <mat-label>Elección del equipo Trello</mat-label>
       <mat-select [ngModel]="selectedOrg" (ngModelChange)="sendData($event)" name="org" required>
         <mat-option *ngFor="let org of organizationList" [value]="org">
-          {{ org.name }}
+          {{ org.displayName }}
         </mat-option>
       </mat-select>
   <mat-error *ngIf="orgControl.hasError('required')">Por favor, elija un equipo</mat-error>

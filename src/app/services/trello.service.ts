@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 export interface Organization {
     id: string;
     name: string;
+    displayName: string;
 }
 
 @Injectable({
