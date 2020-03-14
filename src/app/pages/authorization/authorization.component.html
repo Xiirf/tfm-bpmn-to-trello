@@ -1,0 +1,22 @@
+<div *ngIf="!token; else clearToken">
+    <h1>
+        Debes autorizar la aplicación para generar el tablero Trello
+    </h1>
+      
+    <button type="button" class="btn btn-success" (click)="authorize()">Autorización</button>
+</div>
+
+<ng-template #clearToken>
+    <h1>
+        Haga clic en el botón para desactivar la aplicación
+    </h1>
+    <button type="button" class="btn btn-danger" (click)="deleteToken()">Suprimir token</button>
+
+    <app-organization-list
+        (selectedOrgOut)="setSelectedOrg($event)">
+    </app-organization-list>
+
+</ng-template>
+
+
+  
