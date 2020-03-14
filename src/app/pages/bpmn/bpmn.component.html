@@ -1,8 +1,10 @@
-<div #ref class="diagram-container">
-    <input type="file" (change)="getFile($event)"/>​
+<div class="container">
+    <div #ref class="diagram-container" (drop)="drop($event)" (dragover)="allowDrop($event)">
+    </div>
+    <div class="boutons">
+        <button type="button" class="btn btn-primary" (click)="saveSVG()" download="bpmn.svg">Save as svg</button>
+        <button type="button" class="btn btn-primary"(click)="saveDiagram()">Save as xml</button>
+        <button type="button" class="btn btn-primary"*ngIf="selectedOrg" (click)="genTrello()">Generación Trello</button>
+    </div>
 </div>
-<br>
-<button (click)="saveSVG()" download="bpmn.svg">Save as svg</button>
-<button (click)="saveDiagram()">Save as xml</button>
-<button *ngIf="selectedOrg" (click)="genTrello()">Generación Trello</button>
 

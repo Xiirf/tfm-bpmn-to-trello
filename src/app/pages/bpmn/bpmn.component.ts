@@ -47,6 +47,24 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
         this.loadXML();
     }
 
+    drop(event) {
+        if (event.dataTransfer.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                const text = reader.result.toString();
+                this.displayDiagram(text);
+            };
+            reader.readAsText(event.dataTransfer.files[0]);
+        }
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    allowDrop(event) {
+        event.preventDefault();
+    }
+
     loadXML() {
         this.http.get('/assets/diagram_V1.bpmn',
         {
@@ -65,18 +83,14 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
 
     displayDiagram(xml) {
         this.bpmnJS.importXML(xml, (err, warnings) => {
-
             if (err) {
               console.log(err);
-            } else {
-                console.log(warnings);
             }
         });
     }
 
     genTrello() {
         this.bpmnJS.saveXML((err: any, xml: any) => {
-            console.log(xml);
             if (!err) {
                 this.generateService.generateTrello(this.selectedOrg.name, xml);
             }
@@ -94,24 +108,11 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
 
     saveDiagram() {
         this.bpmnJS.saveXML((err: any, xml: any) => {
-            console.log(xml);
             if (!err) {
                 const blob = new Blob([xml], { type: 'image/svg+xml' });
                 saveAs(blob, 'diagram.bpmn');
             }
         });
-    }
-
-    public getFile(event) {
-        if (event.target.files[0]) {
-            const reader = new FileReader();
-
-            reader.onload = (e) => {
-                const text = reader.result.toString();
-                this.displayDiagram(text);
-            };
-            reader.readAsText(event.target.files[0]);
-        }
     }
 
     ngOnDestroy(): void {
