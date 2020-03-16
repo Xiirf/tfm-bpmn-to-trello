@@ -13,6 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { saveAs } from '@progress/kendo-file-saver';
 import { Organization } from 'src/app/services/trello.service';
 import { GenerateService } from 'src/app/services/generate.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-bpmn',
@@ -30,7 +31,8 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
 
     constructor(private http: HttpClient,
                 private sanitizer: DomSanitizer,
-                private generateService: GenerateService) {
+                private generateService: GenerateService,
+                private toastr: ToastrService) {
 
         this.bpmnJS = new BpmnJS();
 
@@ -52,6 +54,7 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
             const reader = new FileReader();
 
             reader.onload = (e) => {
+                console.log(reader.result);
                 const text = reader.result.toString();
                 this.displayDiagram(text);
             };
@@ -84,15 +87,20 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
     displayDiagram(xml) {
         this.bpmnJS.importXML(xml, (err, warnings) => {
             if (err) {
-              console.log(err);
+                this.toastr.error(err);
             }
+            this.toastr.success('Diagram displayed');
         });
     }
 
     genTrello() {
         this.bpmnJS.saveXML((err: any, xml: any) => {
             if (!err) {
-                this.generateService.generateTrello(this.selectedOrg.name, xml);
+                this.generateService.generateTrello(this.selectedOrg.name, xml)
+                .then((resp) => { this.toastr.success(resp.message); })
+                .catch((error) => {
+                    this.toastr.error(error.error.msg);
+                });
             }
         });
     }
