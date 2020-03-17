@@ -54,7 +54,6 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
             const reader = new FileReader();
 
             reader.onload = (e) => {
-                console.log(reader.result);
                 const text = reader.result.toString();
                 this.displayDiagram(text);
             };
@@ -99,7 +98,12 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
                 this.generateService.generateTrello(this.selectedOrg.name, xml)
                 .then((resp) => { this.toastr.success(resp.message); })
                 .catch((error) => {
-                    this.toastr.error(error.error.msg);
+                    if (error.error.msg) {
+                        this.toastr.error(error.error.msg);
+                    } else {
+                        console.log(error.error);
+                        this.toastr.error(error.error.error);
+                    }
                 });
             }
         });
