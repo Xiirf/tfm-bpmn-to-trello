@@ -2,12 +2,19 @@ import {
     AfterContentInit,
     Component,
     ElementRef,
+    OnInit,
     OnDestroy,
     ViewChild,
     Input
   } from '@angular/core';
 
 import * as BpmnJS from 'bpmn-js/dist/bpmn-modeler.production.min.js';
+import $ from 'jquery';
+import BpmnModeler from 'bpmn-js/lib/Modeler';
+import propertiesPanelModule from 'bpmn-js-properties-panel';
+import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda';
+import camundaModdleDescriptor from 'camunda-bpmn-moddle/resources/camunda.json';
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { saveAs } from '@progress/kendo-file-saver';
@@ -21,9 +28,13 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./bpmn.component.scss']
 })
 
-export class BpmnComponent implements AfterContentInit, OnDestroy {
+export class BpmnComponent implements OnInit, OnDestroy {
     // instantiate BpmnJS with component
     bpmnJS: BpmnJS;
+    @ViewChild('canvas', {static: true}) private canvasRef: ElementRef;
+    @ViewChild('propertiesPanel', {static: true}) private propertiesPanelRef: ElementRef;
+    bpmnModeler: BpmnModeler;
+
     @Input() selectedOrg: Organization;
 
     // retrieve DOM element reference
@@ -34,20 +45,37 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
                 private generateService: GenerateService,
                 private toastr: ToastrService) {
 
-        this.bpmnJS = new BpmnJS();
+        //this.bpmnJS = new BpmnJS();
 
-        this.bpmnJS.on('import.done', ({ error }) => {
+        /*this.bpmnJS.on('import.done', ({ error }) => {
           if (!error) {
             this.bpmnJS.get('canvas').zoom('fit-viewport');
           }
-        });
+        });*/
     }
 
-    ngAfterContentInit(): void {
-        // attach BpmnJS instance to DOM element
-        this.bpmnJS.attachTo(this.el.nativeElement);
-        this.loadXML();
+    ngOnInit(): void {
+        this.bpmnModeler = new BpmnModeler({
+            container: '#canvas',
+            propertiesPanel: {
+                parent: '#properties'
+            },
+            additionalModules: [
+              propertiesPanelModule,
+              propertiesProviderModule
+            ],
+            moddleExtensions: {
+              camunda: camundaModdleDescriptor
+            }
+        });
+        this.loadXML();      
     }
+
+    /*ngAfterContentInit(): void {
+        // attach BpmnJS instance to DOM element
+        this.bpmnModeler.attachTo(this.el.nativeElement);
+        this.loadXML();
+    }*/
 
     drop(event) {
         if (event.dataTransfer.files[0]) {
@@ -84,7 +112,7 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
     }
 
     displayDiagram(xml) {
-        this.bpmnJS.importXML(xml, (err, warnings) => {
+        this.bpmnModeler.importXML(xml, (err, warnings) => {
             if (err) {
                 this.toastr.error(err);
             }
@@ -93,7 +121,7 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
     }
 
     genTrello() {
-        this.bpmnJS.saveXML((err: any, xml: any) => {
+        this.bpmnModeler.saveXML((err: any, xml: any) => {
             if (!err) {
                 this.generateService.generateTrello(this.selectedOrg.name, xml)
                 .then((resp) => { this.toastr.success(resp.message); })
@@ -110,7 +138,7 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
     }
 
     saveSVG() {
-        this.bpmnJS.saveSVG((err: any, svg: any) => {
+        this.bpmnModeler.saveSVG((err: any, svg: any) => {
             if (!err) {
                 const blob = new Blob([svg], { type: 'image/svg+xml' });
                 saveAs(blob, 'diagram.svg');
@@ -119,7 +147,7 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
     }
 
     saveDiagram() {
-        this.bpmnJS.saveXML((err: any, xml: any) => {
+        this.bpmnModeler.saveXML((err: any, xml: any) => {
             if (!err) {
                 const blob = new Blob([xml], { type: 'image/svg+xml' });
                 saveAs(blob, 'diagram.bpmn');
@@ -128,6 +156,6 @@ export class BpmnComponent implements AfterContentInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.bpmnJS.destroy();
+        this.bpmnModeler.destroy();
     }
 }
