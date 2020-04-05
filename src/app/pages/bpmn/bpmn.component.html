@@ -1,7 +1,7 @@
 <div class="container">
     <!--<div #ref class="diagram-container canvas" (drop)="drop($event)" (dragover)="allowDrop($event)">
     </div>-->
-    <div id="canvas" #canvas></div>
+    <div #canvas id="canvas" (drop)="drop($event)" (dragover)="allowDrop($event)"></div>
     <div class="boutons">
         <div class="properties-panel" id="properties"></div>
         <button type="button" class="btn btn-primary" (click)="saveSVG()" download="bpmn.svg">Save as svg</button>
