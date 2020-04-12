@@ -28,6 +28,7 @@
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/bpmn-js/dist/assets/diagram-js.css",
               "node_modules/bpmn-js/dist/assets/bpmn-font/css/bpmn.css",
+              "node_modules/bpmn-js-properties-panel/styles/properties.less",
               "src/custom-theme.scss",
               "src/styles.css"
             ],

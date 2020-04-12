@@ -1,7 +1,9 @@
 <div class="container">
-    <div #ref class="diagram-container" (drop)="drop($event)" (dragover)="allowDrop($event)">
-    </div>
+    <!--<div #ref class="diagram-container canvas" (drop)="drop($event)" (dragover)="allowDrop($event)">
+    </div>-->
+    <div #canvas id="canvas" (drop)="drop($event)" (dragover)="allowDrop($event)"></div>
     <div class="boutons">
+        <div class="properties-panel" id="properties"></div>
         <button type="button" class="btn btn-primary" (click)="saveSVG()" download="bpmn.svg">Save as svg</button>
         <button type="button" class="btn btn-primary"(click)="saveDiagram()">Save as xml</button>
         <button type="button" class="btn btn-primary"*ngIf="selectedOrg" (click)="genTrello()">Generación Trello</button>
