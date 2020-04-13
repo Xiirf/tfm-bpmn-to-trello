@@ -43,16 +43,7 @@ export class BpmnComponent implements OnInit, OnDestroy {
     constructor(private http: HttpClient,
                 private sanitizer: DomSanitizer,
                 private generateService: GenerateService,
-                private toastr: ToastrService) {
-
-        //this.bpmnJS = new BpmnJS();
-
-        /*this.bpmnJS.on('import.done', ({ error }) => {
-          if (!error) {
-            this.bpmnJS.get('canvas').zoom('fit-viewport');
-          }
-        });*/
-    }
+                private toastr: ToastrService) { }
 
     ngOnInit(): void {
         this.bpmnModeler = new BpmnModeler({
@@ -68,14 +59,8 @@ export class BpmnComponent implements OnInit, OnDestroy {
               camunda: camundaModdleDescriptor
             }
         });
-        this.loadXML();      
-    }
-
-    /*ngAfterContentInit(): void {
-        // attach BpmnJS instance to DOM element
-        this.bpmnModeler.attachTo(this.el.nativeElement);
         this.loadXML();
-    }*/
+    }
 
     drop(event) {
         if (event.dataTransfer.files[0]) {
