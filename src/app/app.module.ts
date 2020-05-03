@@ -11,9 +11,11 @@ import { OrganizationListComponent } from './pages/organizationList/organization
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BpmnComponent } from './pages/bpmn/bpmn.component';
 import { ToastrModule } from 'ngx-toastr';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -33,6 +35,9 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientJsonpModule,
     NoopAnimationsModule,
     MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
     MatButtonModule,
     FormsModule,
     ToastrModule.forRoot()

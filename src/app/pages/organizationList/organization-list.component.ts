@@ -12,11 +12,16 @@ export class OrganizationListComponent implements OnInit {
 
     organizationList: Organization[] = [];
     selectedOrg: Organization;
+    idPowerUp: string;
+    isIdPowerUpSet: boolean;
     @Output() selectedOrgOut = new EventEmitter<Organization>();
     // @Output() selectedOrgSend = new EventEmitter<Organization>();
     orgControl = new FormControl('', Validators.required);
+    powerUpControl = new FormControl('', Validators.pattern('^[0-9a-fA-F]{24}$'));
 
-    constructor(private trelloService: TrelloService) {}
+    constructor(private trelloService: TrelloService) {
+        this.isIdPowerUpSet = false;
+    }
 
     ngOnInit() {
         this.trelloService.getOrganization()
@@ -32,5 +37,16 @@ export class OrganizationListComponent implements OnInit {
     sendData(data) {
         this.selectedOrg = data;
         this.selectedOrgOut.emit(this.selectedOrg);
+    }
+
+    saveId() {
+        localStorage.setItem('idPowerUp', this.idPowerUp);
+        this.isIdPowerUpSet = true;
+    }
+
+    deleteId() {
+        localStorage.removeItem('idPowerUp');
+        this.isIdPowerUpSet = false;
+        this.idPowerUp = '';
     }
 }

@@ -108,7 +108,8 @@ export class BpmnComponent implements OnInit, OnDestroy {
     genTrello() {
         this.bpmnModeler.saveXML((err: any, xml: any) => {
             if (!err) {
-                this.generateService.generateTrello(this.selectedOrg.name, xml)
+                const idPowerUp = localStorage.getItem('idPowerUp');
+                this.generateService.generateTrello(this.selectedOrg.id, idPowerUp, xml)
                 .then((resp) => { this.toastr.success(resp.message); })
                 .catch((error) => {
                     if (error.error.msg) {

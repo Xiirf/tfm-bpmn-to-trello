@@ -1,0 +1,15 @@
+::ng-deep div.select {
+    mat-form-field {
+        width: 200px;
+    }
+}
+
+::ng-deep div.text {
+    mat-form-field {
+        width: 330px;
+    }
+}
+
+button {
+    margin-left: 5px;
+}
