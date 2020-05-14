@@ -9,14 +9,3 @@
       <mat-error *ngIf="orgControl.hasError('required')">Por favor, elija un equipo</mat-error>
     </mat-form-field>
 </div>
-<div class="text">
-    <form>
-      <mat-form-field appearance="legacy">
-        <mat-label>Introduzca la identificación del Power-Up (opcional)</mat-label>
-        <input matInput [formControl]="powerUpControl" [(ngModel)]="idPowerUp" [readonly]="isIdPowerUpSet">
-        <mat-error *ngIf="powerUpControl.hasError('pattern')">Identificador inválido</mat-error>      
-      </mat-form-field>
-      <button *ngIf="!isIdPowerUpSet" type="button" class="btn btn-success" (click)="saveId()" [disabled]="!powerUpControl.valid || !idPowerUp">Añadir Power-Up</button>
-      <button *ngIf="isIdPowerUpSet" type="button" class="btn btn-danger" (click)="deleteId()">Suprimir Power-Up</button>
-    </form>
-</div>
