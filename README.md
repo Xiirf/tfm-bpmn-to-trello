@@ -15,6 +15,7 @@ npm run devMode (port 4201)
 Environmental variables:
     - api_key: Trello API Keys for Developer (https://trello.com/app-key)
     - idPowerUp: PowerUp ID (https://trello.com/power-ups/admin)
+    - urlAPI: Url tfm-bpmn-to-trello-api (https://github.com/Xiirf/tfm-bpmn-to-trello-api)
 
 ## Author
 Flavien Cocu
