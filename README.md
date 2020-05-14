@@ -7,15 +7,23 @@ User interface to interact with a BPMN diagram using Camunda and BPMN.io. Allows
 ## Heroku deployment
 https://tfm-bpmn-to-trello.herokuapp.com/
 
+# Installation
+
 ## Local launch
 npm install <br/>
 npm run devMode (port 4201)
+
+### Important
+url trello
+You have to add the url where you are using the app in your Trello origin (https://trello.com/app-key)
 
 ## Setting
 Environmental variables:
     - api_key: Trello API Keys for Developer (https://trello.com/app-key)
     - idPowerUp: PowerUp ID (https://trello.com/power-ups/admin)
     - urlAPI: Url tfm-bpmn-to-trello-api (https://github.com/Xiirf/tfm-bpmn-to-trello-api)
+
+# Other informations
 
 ## Author
 Flavien Cocu
