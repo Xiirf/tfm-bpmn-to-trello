@@ -23,7 +23,7 @@ Environmental variables:<br/>
     - idPowerUp: PowerUp ID (https://trello.com/power-ups/admin)<br/>
     - urlAPI: Url tfm-bpmn-to-trello-api (https://github.com/Xiirf/tfm-bpmn-to-trello-api)<br/>
 
-# Other informations
+# Other information
 
 ## Author
 Flavien Cocu
