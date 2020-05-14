@@ -6,11 +6,10 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class GenerateService {
-    root = 'http://localhost:8000/api/v1';
     constructor(private http: HttpClient) {}
 
     generateTrello(teamName: string, file: string): Promise<any> {
-        return this.http.post(`${this.root}/generate`, {
+        return this.http.post(`${environment.urlAPI}/generate`, {
             token: localStorage.getItem('token'),
             key: localStorage.getItem('key'),
             teamName,
