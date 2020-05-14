@@ -14,8 +14,8 @@ npm install <br/>
 npm run devMode (port 4201)
 
 ### Important
-url trello
 You have to add the url where you are using the app in your Trello origin (https://trello.com/app-key)
+![alt text](https://i.imgur.com/nMcRekp.png)
 
 ## Setting
 Environmental variables:
