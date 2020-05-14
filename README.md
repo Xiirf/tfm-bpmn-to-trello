@@ -19,9 +19,9 @@ You have to add the url where you are using the app in your Trello origin (https
 
 ## Setting
 Environmental variables:
-    - api_key: Trello API Keys for Developer (https://trello.com/app-key)
-    - idPowerUp: PowerUp ID (https://trello.com/power-ups/admin)
-    - urlAPI: Url tfm-bpmn-to-trello-api (https://github.com/Xiirf/tfm-bpmn-to-trello-api)
+    - api_key: Trello API Keys for Developer (https://trello.com/app-key)<br/>
+    - idPowerUp: PowerUp ID (https://trello.com/power-ups/admin)<br/>
+    - urlAPI: Url tfm-bpmn-to-trello-api (https://github.com/Xiirf/tfm-bpmn-to-trello-api)<br/>
 
 # Other informations
 
