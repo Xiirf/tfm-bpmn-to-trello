@@ -4,6 +4,7 @@ import { Organization } from 'src/app/services/trello.service';
 declare let TrelloPowerUp: any;
 declare let window: any;
 
+// This component is used to get the token from Trello
 @Component({
   selector: 'app-authorization',
   templateUrl: './authorization.component.html',
@@ -43,6 +44,7 @@ export class AuthorizationComponent implements OnInit {
         });
     }
 
+    // Event to get the selected org
     setSelectedOrg(data) {
         this.selectedOrg = data;
         this.selectedOrgOut.emit(this.selectedOrg);

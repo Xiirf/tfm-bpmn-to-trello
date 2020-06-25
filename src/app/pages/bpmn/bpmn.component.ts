@@ -1,5 +1,4 @@
 import {
-    AfterContentInit,
     Component,
     ElementRef,
     OnInit,
@@ -9,7 +8,6 @@ import {
   } from '@angular/core';
 
 import * as BpmnJS from 'bpmn-js/dist/bpmn-modeler.production.min.js';
-import $ from 'jquery';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import propertiesPanelModule from 'bpmn-js-properties-panel';
 import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/camunda';
@@ -21,6 +19,8 @@ import { saveAs } from '@progress/kendo-file-saver';
 import { Organization } from 'src/app/services/trello.service';
 import { GenerateService } from 'src/app/services/generate.service';
 import { ToastrService } from 'ngx-toastr';
+
+// This component is used to interact with the BPMN diagram
 
 @Component({
   selector: 'app-bpmn',
@@ -62,10 +62,11 @@ export class BpmnComponent implements OnInit, OnDestroy {
         this.loadXML();
     }
 
+    // Drop file on the diagram div
     drop(event) {
         if (event.dataTransfer.files[0]) {
             const reader = new FileReader();
-
+            // Display the diagram
             reader.onload = (e) => {
                 const text = reader.result.toString();
                 this.displayDiagram(text);
@@ -76,10 +77,12 @@ export class BpmnComponent implements OnInit, OnDestroy {
         event.stopPropagation();
     }
 
+    // Allow drop on the diagram div
     allowDrop(event) {
         event.preventDefault();
     }
 
+    // Loard a first diagram
     loadXML() {
         this.http.get('/assets/diagram_V1.bpmn',
         {
@@ -105,6 +108,7 @@ export class BpmnComponent implements OnInit, OnDestroy {
         });
     }
 
+    // Call the service to send the diagram to our api
     genTrello() {
         this.bpmnModeler.saveXML((err: any, xml: any) => {
             if (!err) {
@@ -122,6 +126,7 @@ export class BpmnComponent implements OnInit, OnDestroy {
         });
     }
 
+    // Get the current diagram as svg file
     saveSVG() {
         this.bpmnModeler.saveSVG((err: any, svg: any) => {
             if (!err) {
@@ -131,6 +136,7 @@ export class BpmnComponent implements OnInit, OnDestroy {
         });
     }
 
+    // Get the current diagram as xml file
     saveDiagram() {
         this.bpmnModeler.saveXML((err: any, xml: any) => {
             if (!err) {

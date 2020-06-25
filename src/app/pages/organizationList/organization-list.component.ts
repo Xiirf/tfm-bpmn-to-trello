@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, Inpu
 import { TrelloService, Organization } from 'src/app/services/trello.service';
 import { FormControl, Validators } from '@angular/forms';
 
+// Component to display and select Trello organization
+
 @Component({
   selector: 'app-organization-list',
   templateUrl: './organization-list.component.html',
@@ -19,6 +21,7 @@ export class OrganizationListComponent implements OnInit {
     }
 
     ngOnInit() {
+        // Get trello organization from token owner
         this.trelloService.getOrganization()
             .then((data) => {
                 for (const org of data.organizations) {

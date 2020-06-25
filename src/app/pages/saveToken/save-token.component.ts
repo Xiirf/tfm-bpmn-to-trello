@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 declare let window: any;
 
+// This component is a window used to get token then automatically close herself
 @Component({
   selector: 'app-save-token',
   templateUrl: './save-token.component.html',
