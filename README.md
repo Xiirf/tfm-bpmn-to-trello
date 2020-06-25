@@ -41,7 +41,10 @@ The next step is to choose a team to create the board. <br/>
 The application has many functionalities such as the ability to directly import a diagram, create it and save it in svg or xml format. In addition, it is also possible to generate the Trello table corresponding to the diagram.
 
 ### Camunda
-The diagram also has the functionality offered by Camunda to add features. (https://docs.camunda.org/get-started/quick-start/user-task/)
+The diagram also has the functionality offered by Camunda to add features. 
+For all that concerns adding forms and assigning tasks, I invite you to read the following documentation: https://docs.camunda.org/get-started/quick-start/user-task/ <br/>
+Regarding the conditions I invite you to read this one: https://docs.camunda.org/get-started/quick-start/gateway/ <br/>
+Each of the documentations are in English and very well explained with a lot of illustration to guide the user.
 
 ### Rules
 In order to be able to generate the diagram on Trello you have to respect certain syntax rules such as: <br/>
